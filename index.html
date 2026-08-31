@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Cash Kenya 🇰🇪</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-    body { background:#030712; }
-    .hidden { display:none !important; }
-  </style>
 </head>
 
-<body class="min-h-screen bg-gray-950 text-white">
+<body class="bg-gray-950 text-white min-h-screen font-sans">
 
-<header class="border-b border-gray-800 bg-gray-950">
-  <div class="max-w-md mx-auto p-4 flex justify-between items-center">
+<header class="border-b border-gray-900 p-4">
+  <div class="max-w-md mx-auto flex justify-between items-center">
     <div>
-      <h1 class="font-bold text-green-400 text-lg">Quick Cash Kenya 🇰🇪</h1>
-      <p class="text-[10px] text-gray-500">Complete tasks. Earn money.</p>
+      <h1 class="text-lg font-bold text-green-400">
+        Quick Cash Kenya 🇰🇪
+      </h1>
+      <p class="text-[10px] text-gray-500">
+        Complete tasks. Earn money.
+      </p>
     </div>
 
-    <button id="settingsBtn"
-      class="text-xs bg-gray-900 border border-gray-700 px-3 py-2 rounded-lg">
+    <button
+      id="btn-settings"
+      class="text-xs bg-gray-900 border border-gray-800 px-3 py-2 rounded-lg">
       ⚙️
     </button>
   </div>
@@ -32,93 +32,148 @@
 
 <main class="max-w-md mx-auto p-4">
 
-<!-- SETUP -->
-<section id="setupScreen"
-  class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+<!-- ================= CONFIG ================= -->
 
-  <h2 class="font-bold text-lg mb-1">Connect your database</h2>
+<section
+  id="config-screen"
+  class="hidden bg-gray-900 border border-gray-800 rounded-2xl p-6">
+
+  <h2 class="text-lg font-bold mb-1">
+    Connect your database
+  </h2>
 
   <p class="text-xs text-gray-400 mb-5">
     Enter your Supabase Project URL and public publishable/anon key.
   </p>
 
-  <label class="text-xs text-gray-400">Supabase URL</label>
-  <input id="supabaseUrl"
-    class="w-full mt-1 mb-3 bg-gray-950 border border-gray-700 rounded-xl p-3 text-sm"
-    placeholder="https://your-project.supabase.co">
+  <div class="space-y-4">
 
-  <label class="text-xs text-gray-400">Publishable / Anon Key</label>
-  <input id="supabaseKey"
-    type="password"
-    class="w-full mt-1 mb-4 bg-gray-950 border border-gray-700 rounded-xl p-3 text-sm"
-    placeholder="Your public key">
+    <div>
+      <label class="text-xs text-gray-400">
+        Supabase URL
+      </label>
 
-  <button id="connectBtn"
-    class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl font-bold">
-    Connect
-  </button>
+      <input
+        id="cfg-url"
+        type="text"
+        class="w-full mt-1 bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm"
+        placeholder="https://your-project.supabase.co">
+    </div>
 
-  <p id="setupError"
-    class="hidden mt-3 text-xs text-red-400"></p>
+    <div>
+      <label class="text-xs text-gray-400">
+        Publishable / Anon Key
+      </label>
+
+      <input
+        id="cfg-key"
+        type="password"
+        class="w-full mt-1 bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm"
+        placeholder="sb_publishable_...">
+    </div>
+
+    <button
+      id="btn-save-config"
+      class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl font-bold">
+      Connect
+    </button>
+
+  </div>
 </section>
 
 
-<!-- AUTH -->
-<section id="authScreen"
-  class="hidden bg-gray-900 border border-gray-800 rounded-2xl p-5">
+<!-- ================= AUTH ================= -->
 
-  <div class="flex mb-5 border-b border-gray-800">
+<section
+  id="auth-screen"
+  class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
 
-    <button id="loginTab"
-      class="flex-1 py-3 text-sm font-bold text-green-400 border-b-2 border-green-400">
+  <div class="flex border-b border-gray-800 mb-5">
+
+    <button
+      id="tab-login"
+      type="button"
+      class="flex-1 pb-3 text-sm font-bold text-green-400 border-b-2 border-green-400">
       Login
     </button>
 
-    <button id="registerTab"
-      class="flex-1 py-3 text-sm text-gray-400">
+    <button
+      id="tab-register"
+      type="button"
+      class="flex-1 pb-3 text-sm text-gray-400">
       Register
     </button>
 
   </div>
 
-  <input id="email"
-    type="email"
-    autocomplete="email"
-    placeholder="Email address"
-    class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mb-3 text-sm">
+  <div class="space-y-4">
 
-  <input id="password"
-    type="password"
-    autocomplete="current-password"
-    placeholder="Password"
-    class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mb-4 text-sm">
+    <div>
+      <label class="text-xs text-gray-400">
+        Email Address
+      </label>
 
-  <button id="authBtn"
-    class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl font-bold">
-    Login
-  </button>
+      <input
+        id="email"
+        type="email"
+        autocomplete="username"
+        class="w-full mt-1 bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm"
+        placeholder="name@example.com">
+    </div>
 
-  <p id="authMessage"
-    class="hidden mt-3 text-xs p-3 rounded-lg"></p>
+    <div>
+      <label class="text-xs text-gray-400">
+        Password
+      </label>
 
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        class="w-full mt-1 bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm"
+        placeholder="••••••••">
+    </div>
+
+    <div
+      id="auth-error"
+      class="hidden text-xs p-3 rounded-lg bg-red-950/40 border border-red-900 text-red-300">
+    </div>
+
+    <button
+      id="auth-btn"
+      type="button"
+      class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl font-bold">
+      Login
+    </button>
+
+  </div>
 </section>
 
 
-<!-- DASHBOARD -->
-<section id="dashboardScreen" class="hidden">
+<!-- ================= USER DASHBOARD ================= -->
 
-  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-4">
+<section
+  id="dashboard-screen"
+  class="hidden space-y-4">
+
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4">
 
     <div class="flex justify-between items-center">
 
-      <div class="min-w-0">
-        <p class="text-[10px] text-gray-500 uppercase">Account</p>
-        <p id="userEmail"
-          class="text-sm font-bold text-green-400 truncate"></p>
+      <div>
+        <p class="text-[10px] uppercase text-gray-500">
+          Account
+        </p>
+
+        <p
+          id="user-email-display"
+          class="text-sm font-bold text-green-400">
+        </p>
       </div>
 
-      <button id="logoutBtn"
-        class="text-xs text-red-400 border border-red-900 px-3 py-2 rounded-lg">
+      <button
+        id="btn-logout"
+        class="text-xs text-red-400 border border-red-500/30 px-3 py-2 rounded-lg">
         Logout
       </button>
 
@@ -127,42 +182,42 @@
   </div>
 
 
-  <!-- BALANCE -->
-  <div class="bg-green-950/30 border border-green-900/50 rounded-2xl p-5 mb-4">
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
 
-    <p class="text-xs text-gray-400">Available Balance</p>
+    <p class="text-xs text-gray-400">
+      Available Balance
+    </p>
 
-    <div class="flex justify-between items-end mt-1">
+    <p class="text-3xl font-bold text-green-400">
+      KES 0
+    </p>
 
-      <p id="balance"
-        class="text-3xl font-bold text-green-400">
-        KES 0
-      </p>
-
-      <button id="withdrawBtn"
-        class="text-xs bg-green-600 px-3 py-2 rounded-lg font-bold">
-        Withdraw
-      </button>
-
-    </div>
+    <button
+      class="mt-3 bg-green-600 px-4 py-2 rounded-lg text-sm font-bold">
+      Withdraw
+    </button>
 
   </div>
 
 
-  <!-- TASKS -->
   <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4">
 
-    <div class="mb-4">
-      <h2 class="font-bold">Available Tasks</h2>
-      <p class="text-xs text-gray-500">
-        Complete published tasks and submit your work.
-      </p>
-    </div>
+    <h2 class="text-lg font-bold">
+      Available Tasks
+    </h2>
 
-    <div id="tasksList" class="space-y-3">
-      <p class="text-xs text-gray-500 text-center py-5">
+    <p class="text-xs text-gray-500 mb-4">
+      Complete published tasks and submit your work.
+    </p>
+
+    <div
+      id="tasks-list"
+      class="space-y-3">
+
+      <p class="text-center text-gray-500 text-xs">
         Loading tasks...
       </p>
+
     </div>
 
   </div>
@@ -170,510 +225,570 @@
 </section>
 
 
-<!-- TASK MODAL -->
-<div id="taskModal"
-  class="hidden fixed inset-0 bg-black/80 p-4 z-50">
+<!-- ================= ADMIN DASHBOARD ================= -->
 
-  <div class="max-w-md mx-auto mt-10 bg-gray-900 border border-gray-700 rounded-2xl p-5">
+<section
+  id="admin-screen"
+  class="hidden space-y-4">
 
-    <div class="flex justify-between">
-      <h2 id="modalTitle" class="font-bold"></h2>
+  <div class="bg-gray-900 border border-green-900 rounded-2xl p-5">
 
-      <button id="closeModal"
-        class="text-gray-400">
-        ✕
+    <div class="flex justify-between items-center">
+
+      <div>
+        <p class="text-[10px] uppercase text-green-500 font-bold">
+          Administrator
+        </p>
+
+        <h2 class="text-xl font-bold">
+          Admin Dashboard 👑
+        </h2>
+
+        <p
+          id="admin-email"
+          class="text-xs text-gray-400 mt-1">
+        </p>
+      </div>
+
+      <button
+        id="btn-admin-logout"
+        class="text-xs text-red-400 border border-red-500/30 px-3 py-2 rounded-lg">
+        Logout
       </button>
+
     </div>
-
-    <p id="modalDescription"
-      class="text-sm text-gray-300 mt-3"></p>
-
-    <div class="bg-gray-950 rounded-xl p-3 mt-4">
-      <p class="text-xs text-gray-500">Instructions</p>
-      <p id="modalInstructions"
-        class="text-sm mt-1"></p>
-    </div>
-
-    <p id="modalReward"
-      class="text-green-400 font-bold text-sm mt-4"></p>
-
-    <textarea id="submissionText"
-      class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-4 text-sm"
-      rows="5"
-      placeholder="Enter your completed task / proof here"></textarea>
-
-    <button id="submitTaskBtn"
-      class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl mt-3 font-bold">
-      Submit Task
-    </button>
-
-    <p id="taskMessage"
-      class="hidden text-xs mt-3"></p>
 
   </div>
-</div>
 
 
-<!-- WITHDRAW MODAL -->
-<div id="withdrawModal"
-  class="hidden fixed inset-0 bg-black/80 p-4 z-50">
+  <div class="grid grid-cols-2 gap-3">
 
-  <div class="max-w-md mx-auto mt-20 bg-gray-900 border border-gray-700 rounded-2xl p-5">
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+      <p class="text-xs text-gray-500">
+        Tasks
+      </p>
 
-    <div class="flex justify-between">
-      <h2 class="font-bold">Withdraw Earnings</h2>
-
-      <button id="closeWithdraw"
-        class="text-gray-400">
-        ✕
-      </button>
+      <p
+        id="admin-task-count"
+        class="text-2xl font-bold text-green-400">
+        0
+      </p>
     </div>
 
-    <p class="text-xs text-gray-500 mt-2">
-      Enter the M-Pesa number and amount you want to request.
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+      <p class="text-xs text-gray-500">
+        Status
+      </p>
+
+      <p class="text-2xl font-bold text-green-400">
+        ONLINE
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+
+    <h2 class="font-bold mb-1">
+      Task Management
+    </h2>
+
+    <p class="text-xs text-gray-500 mb-4">
+      Tasks currently stored in your Supabase database.
     </p>
 
-    <input id="mpesaNumber"
-      class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-4 text-sm"
-      placeholder="07XXXXXXXX">
+    <div
+      id="admin-tasks-list"
+      class="space-y-3">
 
-    <input id="withdrawAmount"
-      type="number"
-      class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-3 text-sm"
-      placeholder="Amount in KES">
+      Loading tasks...
 
-    <button id="requestWithdraw"
-      class="w-full bg-green-600 py-3 rounded-xl mt-4 font-bold">
-      Request Withdrawal
-    </button>
-
-    <p id="withdrawMessage"
-      class="hidden text-xs mt-3"></p>
+    </div>
 
   </div>
-</div>
+
+
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+
+    <h2 class="font-bold">
+      Admin Account
+    </h2>
+
+    <p class="text-xs text-gray-400 mt-2">
+      Your administrator email is:
+    </p>
+
+    <p class="text-green-400 font-bold text-sm mt-1">
+      mutaisidney26@gmail.com
+    </p>
+
+  </div>
+
+</section>
 
 </main>
 
 
-<footer class="text-center text-[10px] text-gray-600 py-6">
-  © 2026 Quick Cash Kenya
+<footer class="text-center text-xs text-gray-700 py-6">
+  © 2026 Quick Cash Kenya 🇰🇪
 </footer>
 
 
 <script>
 
-let db = null;
-let currentUser = null;
-let selectedTask = null;
-let loginMode = true;
+let supabase = null;
+let isLoginMode = true;
 
 
-/* ---------- ELEMENTS ---------- */
+/* =========================================
+   ADMIN EMAIL
+========================================= */
 
-const setupScreen = document.getElementById("setupScreen");
-const authScreen = document.getElementById("authScreen");
-const dashboardScreen = document.getElementById("dashboardScreen");
+const ADMIN_EMAIL = "mutaisidney26@gmail.com";
 
 
-/* ---------- START ---------- */
+/* =========================================
+   START APP
+========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  document.getElementById("connectBtn")
-    .addEventListener("click", connectSupabase);
+  document
+    .getElementById("tab-login")
+    .addEventListener("click", () => switchTab("login"));
 
-  document.getElementById("settingsBtn")
-    .addEventListener("click", showSetup);
+  document
+    .getElementById("tab-register")
+    .addEventListener("click", () => switchTab("register"));
 
-  document.getElementById("loginTab")
-    .addEventListener("click", () => setAuthMode(true));
+  document
+    .getElementById("auth-btn")
+    .addEventListener("click", handleAuth);
 
-  document.getElementById("registerTab")
-    .addEventListener("click", () => setAuthMode(false));
-
-  document.getElementById("authBtn")
-    .addEventListener("click", authenticate);
-
-  document.getElementById("logoutBtn")
+  document
+    .getElementById("btn-logout")
     .addEventListener("click", logout);
 
-  document.getElementById("closeModal")
-    .addEventListener("click", closeTask);
+  document
+    .getElementById("btn-admin-logout")
+    .addEventListener("click", logout);
 
-  document.getElementById("submitTaskBtn")
-    .addEventListener("click", submitTask);
+  document
+    .getElementById("btn-settings")
+    .addEventListener("click", openSettings);
 
-  document.getElementById("withdrawBtn")
-    .addEventListener("click", () => {
-      document.getElementById("withdrawModal").classList.remove("hidden");
-    });
+  document
+    .getElementById("btn-save-config")
+    .addEventListener("click", saveConfig);
 
-  document.getElementById("closeWithdraw")
-    .addEventListener("click", () => {
-      document.getElementById("withdrawModal").classList.add("hidden");
-    });
-
-  document.getElementById("requestWithdraw")
-    .addEventListener("click", requestWithdrawal);
-
-  loadSavedConnection();
+  initApp();
 
 });
 
 
-/* ---------- SUPABASE ---------- */
+/* =========================================
+   INIT
+========================================= */
 
-function loadSavedConnection() {
+function initApp() {
 
-  const url = localStorage.getItem("quickcash_url");
-  const key = localStorage.getItem("quickcash_key");
-
-  if (url && key) {
-
-    document.getElementById("supabaseUrl").value = url;
-    document.getElementById("supabaseKey").value = key;
-
-    connect(url, key);
-
-  } else {
-
-    showSetup();
-
-  }
-}
-
-
-function connectSupabase() {
-
-  const url = document.getElementById("supabaseUrl").value.trim();
-  const key = document.getElementById("supabaseKey").value.trim();
+  const url = localStorage.getItem("sb_url");
+  const key = localStorage.getItem("sb_key");
 
   if (!url || !key) {
 
-    showSetupError("Enter both Supabase values.");
+    showOnly("config-screen");
+
     return;
-
   }
-
-  localStorage.setItem("quickcash_url", url);
-  localStorage.setItem("quickcash_key", key);
-
-  connect(url, key);
-
-}
-
-
-function connect(url, key) {
 
   try {
 
-    db = window.supabase.createClient(url, key);
-
-    setupScreen.classList.add("hidden");
+    supabase =
+      window.supabase.createClient(url, key);
 
     checkSession();
 
-  } catch(error) {
+  } catch (error) {
 
-    showSetupError("Could not connect to Supabase.");
+    console.error(error);
+
+    openSettings();
 
   }
 
 }
 
 
-function showSetup() {
+/* =========================================
+   SCREEN CONTROL
+========================================= */
 
-  setupScreen.classList.remove("hidden");
-  authScreen.classList.add("hidden");
-  dashboardScreen.classList.add("hidden");
+function showOnly(screen) {
+
+  const screens = [
+    "config-screen",
+    "auth-screen",
+    "dashboard-screen",
+    "admin-screen"
+  ];
+
+  screens.forEach(id => {
+
+    document
+      .getElementById(id)
+      .classList.add("hidden");
+
+  });
+
+  document
+    .getElementById(screen)
+    .classList.remove("hidden");
 
 }
 
 
-function showSetupError(message) {
+/* =========================================
+   SETTINGS
+========================================= */
 
-  const el = document.getElementById("setupError");
+function openSettings() {
 
-  el.textContent = message;
-  el.classList.remove("hidden");
+  showOnly("config-screen");
+
+  document.getElementById("cfg-url").value =
+    localStorage.getItem("sb_url") || "";
+
+  document.getElementById("cfg-key").value =
+    localStorage.getItem("sb_key") || "";
 
 }
 
 
-/* ---------- AUTH ---------- */
+function saveConfig() {
 
-function setAuthMode(login) {
+  const url =
+    document.getElementById("cfg-url").value.trim();
 
-  loginMode = login;
+  const key =
+    document.getElementById("cfg-key").value.trim();
 
-  const loginTab = document.getElementById("loginTab");
-  const registerTab = document.getElementById("registerTab");
-  const button = document.getElementById("authBtn");
+  if (!url || !key) {
 
-  if (login) {
+    alert("Enter both Supabase URL and Publishable/Anon Key.");
 
-    loginTab.className =
-      "flex-1 py-3 text-sm font-bold text-green-400 border-b-2 border-green-400";
+    return;
+  }
 
-    registerTab.className =
-      "flex-1 py-3 text-sm text-gray-400";
+  localStorage.setItem("sb_url", url);
+  localStorage.setItem("sb_key", key);
 
-    button.textContent = "Login";
+  initApp();
+
+}
+
+
+/* =========================================
+   LOGIN / REGISTER TABS
+========================================= */
+
+function switchTab(mode) {
+
+  isLoginMode = mode === "login";
+
+  const login =
+    document.getElementById("tab-login");
+
+  const register =
+    document.getElementById("tab-register");
+
+  const button =
+    document.getElementById("auth-btn");
+
+
+  if (isLoginMode) {
+
+    login.className =
+      "flex-1 pb-3 text-sm font-bold text-green-400 border-b-2 border-green-400";
+
+    register.className =
+      "flex-1 pb-3 text-sm text-gray-400";
+
+    button.innerText = "Login";
 
   } else {
 
-    registerTab.className =
-      "flex-1 py-3 text-sm font-bold text-green-400 border-b-2 border-green-400";
+    register.className =
+      "flex-1 pb-3 text-sm font-bold text-green-400 border-b-2 border-green-400";
 
-    loginTab.className =
-      "flex-1 py-3 text-sm text-gray-400";
+    login.className =
+      "flex-1 pb-3 text-sm text-gray-400";
 
-    button.textContent = "Create Account";
+    button.innerText = "Register Account";
 
   }
 
 }
 
 
-async function authenticate() {
+/* =========================================
+   AUTH
+========================================= */
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+async function handleAuth() {
+
+  if (!supabase) {
+
+    openSettings();
+
+    return;
+
+  }
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const error =
+    document.getElementById("auth-error");
+
+  error.classList.add("hidden");
+
 
   if (!email || !password) {
 
-    showAuthMessage("Enter your email and password.", true);
+    error.innerText =
+      "Please enter your email and password.";
+
+    error.classList.remove("hidden");
+
     return;
 
   }
+
 
   let result;
 
-  if (loginMode) {
 
-    result = await db.auth.signInWithPassword({
-      email,
-      password
-    });
+  if (isLoginMode) {
+
+    result =
+      await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
 
   } else {
 
-    result = await db.auth.signUp({
-      email,
-      password
-    });
+    result =
+      await supabase.auth.signUp({
+        email,
+        password
+      });
 
   }
+
 
   if (result.error) {
 
-    showAuthMessage(result.error.message, true);
+    error.innerText =
+      result.error.message;
+
+    error.classList.remove("hidden");
+
     return;
 
   }
 
-  if (!loginMode && !result.data.session) {
 
-    showAuthMessage(
-      "Account created. Check your email before logging in.",
-      false
-    );
+  if (!isLoginMode && !result.data.session) {
 
-    setAuthMode(true);
+    error.innerText =
+      "Registration successful. Check your email before logging in.";
+
+    error.classList.remove("hidden");
+
+    switchTab("login");
+
     return;
 
   }
+
 
   checkSession();
 
 }
 
 
-function showAuthMessage(message, error) {
-
-  const el = document.getElementById("authMessage");
-
-  el.textContent = message;
-  el.className =
-    "mt-3 text-xs p-3 rounded-lg " +
-    (error
-      ? "text-red-400 bg-red-950/40"
-      : "text-green-400 bg-green-950/40");
-
-}
-
+/* =========================================
+   CHECK SESSION
+========================================= */
 
 async function checkSession() {
 
-  const { data } = await db.auth.getSession();
+  if (!supabase) return;
 
-  if (data.session) {
+  const {
+    data: { session }
+  } = await supabase.auth.getSession();
 
-    currentUser = data.session.user;
 
-    showDashboard();
+  if (!session) {
+
+    showOnly("auth-screen");
+
+    return;
+
+  }
+
+
+  const email =
+    session.user.email.toLowerCase();
+
+
+  /*
+    ADMIN DETECTION
+  */
+
+  if (email === ADMIN_EMAIL.toLowerCase()) {
+
+    showAdminDashboard(session);
 
   } else {
 
-    authScreen.classList.remove("hidden");
-    dashboardScreen.classList.add("hidden");
+    showUserDashboard(session);
 
   }
 
 }
 
 
-async function logout() {
+/* =========================================
+   USER DASHBOARD
+========================================= */
 
-  await db.auth.signOut();
+function showUserDashboard(session) {
 
-  currentUser = null;
+  showOnly("dashboard-screen");
 
-  dashboardScreen.classList.add("hidden");
-  authScreen.classList.remove("hidden");
+  document
+    .getElementById("user-email-display")
+    .innerText = session.user.email;
 
-}
-
-
-/* ---------- DASHBOARD ---------- */
-
-function showDashboard() {
-
-  setupScreen.classList.add("hidden");
-  authScreen.classList.add("hidden");
-  dashboardScreen.classList.remove("hidden");
-
-  document.getElementById("userEmail").textContent =
-    currentUser.email;
-
-  loadProfile();
   loadTasks();
 
 }
 
 
-/* ---------- PROFILE ---------- */
+/* =========================================
+   ADMIN DASHBOARD
+========================================= */
 
-async function loadProfile() {
+function showAdminDashboard(session) {
 
-  const { data, error } = await db
-    .from("profiles")
-    .select("*")
-    .eq("id", currentUser.id)
-    .maybeSingle();
+  showOnly("admin-screen");
 
-  if (error) {
+  document
+    .getElementById("admin-email")
+    .innerText = session.user.email;
 
-    console.log(error);
-    return;
-
-  }
-
-  if (!data) return;
-
-  const balance =
-    data.balance ??
-    data.earnings ??
-    data.available_balance ??
-    0;
-
-  document.getElementById("balance").textContent =
-    "KES " + Number(balance).toLocaleString();
+  loadAdminTasks();
 
 }
 
 
-/* ---------- TASKS ---------- */
+/* =========================================
+   LOAD USER TASKS
+========================================= */
 
 async function loadTasks() {
 
   const container =
-    document.getElementById("tasksList");
+    document.getElementById("tasks-list");
 
   container.innerHTML =
-    '<p class="text-xs text-gray-500 text-center py-5">Loading tasks...</p>';
+    '<p class="text-center text-gray-500 text-xs">Loading tasks...</p>';
 
-  const { data, error } = await db
-    .from("tasks")
-    .select("*")
-    .eq("status", "published")
-    .order("created_at", { ascending:false });
+
+  const { data, error } =
+    await supabase
+      .from("tasks")
+      .select("*")
+      .eq("status", "published")
+      .order("created_at", {
+        ascending: false
+      });
+
 
   if (error) {
 
     container.innerHTML =
-      `<p class="text-xs text-red-400">Error loading tasks: ${escapeHtml(error.message)}</p>`;
+      `<div class="bg-red-950/40 border border-red-900 rounded-xl p-3 text-xs text-red-300">
+        ${escapeHTML(error.message)}
+      </div>`;
 
     return;
 
   }
+
 
   if (!data || data.length === 0) {
 
     container.innerHTML =
-      '<p class="text-xs text-gray-500 text-center py-5">No tasks available right now.</p>';
+      '<p class="text-center text-gray-500 text-xs">No tasks available.</p>';
 
     return;
 
   }
 
+
   container.innerHTML = "";
+
 
   data.forEach(task => {
 
-    const card = document.createElement("div");
+    const card =
+      document.createElement("div");
 
     card.className =
-      "border border-gray-800 bg-gray-950 rounded-xl p-4";
+      "bg-gray-950 border border-gray-800 rounded-xl p-4";
 
-    const reward =
-      Number(task.reward || 0);
 
     card.innerHTML = `
 
       <div class="flex justify-between gap-3">
 
-        <div class="min-w-0">
+        <div>
 
           <h3 class="font-bold text-sm">
-            ${escapeHtml(task.title || "Task")}
+            ${escapeHTML(task.title || "Untitled Task")}
           </h3>
 
           <p class="text-xs text-gray-400 mt-1">
-            ${escapeHtml(task.description || "")}
+            ${escapeHTML(task.description || "")}
           </p>
 
           <p class="text-xs text-green-400 font-bold mt-2">
-            Reward: KES ${reward}
+            Reward: KES ${task.reward || 0}
           </p>
 
-          ${
-            task.difficulty
-            ? `<p class="text-[10px] text-gray-500 mt-1">
-                Difficulty: ${escapeHtml(task.difficulty)}
-              </p>`
-            : ""
-          }
+          <p class="text-[10px] text-gray-500 mt-1">
+            Difficulty: ${escapeHTML(task.difficulty || "N/A")}
+          </p>
 
         </div>
 
         <button
-          class="unlockBtn bg-green-600 hover:bg-green-500
-                 text-xs px-3 py-2 rounded-lg font-bold
-                 h-fit whitespace-nowrap">
-
+          class="bg-green-600 px-3 py-2 rounded-lg text-xs font-bold h-fit">
           Open
-
         </button>
 
       </div>
 
     `;
-
-    card.querySelector(".unlockBtn")
-      .addEventListener("click", () => openTask(task));
 
     container.appendChild(card);
 
@@ -682,201 +797,135 @@ async function loadTasks() {
 }
 
 
-/* ---------- TASK OPEN ---------- */
+/* =========================================
+   LOAD ADMIN TASKS
+========================================= */
 
-function openTask(task) {
+async function loadAdminTasks() {
 
-  selectedTask = task;
-
-  document.getElementById("modalTitle").textContent =
-    task.title || "Task";
-
-  document.getElementById("modalDescription").textContent =
-    task.description || "";
-
-  document.getElementById("modalInstructions").textContent =
-    task.instructions || "Follow the task description.";
-
-  document.getElementById("modalReward").textContent =
-    "Reward: KES " + Number(task.reward || 0);
-
-  document.getElementById("submissionText").value = "";
-
-  document.getElementById("taskMessage").classList.add("hidden");
-
-  document.getElementById("taskModal")
-    .classList.remove("hidden");
-
-}
+  const container =
+    document.getElementById("admin-tasks-list");
 
 
-function closeTask() {
-
-  document.getElementById("taskModal")
-    .classList.add("hidden");
-
-  selectedTask = null;
-
-}
-
-
-/* ---------- SUBMISSION ---------- */
-
-async function submitTask() {
-
-  if (!selectedTask || !currentUser) return;
-
-  const text =
-    document.getElementById("submissionText")
-      .value.trim();
-
-  if (!text) {
-
-    showTaskMessage(
-      "Please enter your completed work.",
-      true
-    );
-
-    return;
-
-  }
-
-  const button =
-    document.getElementById("submitTaskBtn");
-
-  button.disabled = true;
-  button.textContent = "Submitting...";
-
-
-  const { error } = await db
-    .from("submissions")
-    .insert({
-
-      task_id: selectedTask.id,
-
-      worker_id: currentUser.id,
-
-      submission_text: text,
-
-      status: "pending_review"
-
-    });
-
-
-  button.disabled = false;
-  button.textContent = "Submit Task";
+  const { data, error } =
+    await supabase
+      .from("tasks")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
 
 
   if (error) {
 
-    showTaskMessage(error.message, true);
-    return;
-
-  }
-
-
-  showTaskMessage(
-    "Submitted successfully. Waiting for admin review.",
-    false
-  );
-
-}
-
-
-function showTaskMessage(message, error) {
-
-  const el =
-    document.getElementById("taskMessage");
-
-  el.textContent = message;
-
-  el.className =
-    "text-xs mt-3 " +
-    (error
-      ? "text-red-400"
-      : "text-green-400");
-
-}
-
-
-/* ---------- WITHDRAWAL ---------- */
-
-async function requestWithdrawal() {
-
-  if (!currentUser) return;
-
-  const phone =
-    document.getElementById("mpesaNumber")
-      .value.trim();
-
-  const amount =
-    Number(
-      document.getElementById("withdrawAmount").value
-    );
-
-
-  if (!phone || !amount || amount <= 0) {
-
-    showWithdrawMessage(
-      "Enter a valid phone number and amount.",
-      true
-    );
+    container.innerHTML =
+      `<div class="text-red-400 text-xs">
+        ${escapeHTML(error.message)}
+      </div>`;
 
     return;
 
   }
 
 
-  /*
-    IMPORTANT:
+  document
+    .getElementById("admin-task-count")
+    .innerText = data ? data.length : 0;
 
-    The actual withdrawal table/column names
-    must match your Supabase database.
 
-    We will connect this after checking your
-    withdrawal table structure.
+  if (!data || data.length === 0) {
 
-    Do NOT put Daraja consumer secrets here.
-  */
+    container.innerHTML =
+      '<p class="text-gray-500 text-xs">No tasks found.</p>';
 
-  showWithdrawMessage(
-    "Withdrawal system will be connected after the withdrawal table is verified.",
-    false
-  );
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  data.forEach(task => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "border border-gray-800 bg-gray-950 rounded-xl p-4";
+
+
+    card.innerHTML = `
+
+      <div class="flex justify-between gap-3">
+
+        <div>
+
+          <h3 class="font-bold text-sm">
+            ${escapeHTML(task.title || "Untitled")}
+          </h3>
+
+          <p class="text-xs text-gray-500 mt-1">
+            Reward: KES ${task.reward || 0}
+          </p>
+
+          <p class="text-xs mt-1">
+            Status:
+            <span class="text-green-400">
+              ${escapeHTML(task.status || "unknown")}
+            </span>
+          </p>
+
+        </div>
+
+        <span class="text-[10px] text-gray-500">
+          ADMIN
+        </span>
+
+      </div>
+
+    `;
+
+    container.appendChild(card);
+
+  });
 
 }
 
 
-/* ---------- HELPERS ---------- */
+/* =========================================
+   LOGOUT
+========================================= */
 
-function showWithdrawMessage(message, error) {
+async function logout() {
 
-  const el =
-    document.getElementById("withdrawMessage");
+  if (supabase) {
 
-  el.textContent = message;
+    await supabase.auth.signOut();
 
-  el.className =
-    "text-xs mt-3 " +
-    (error
-      ? "text-red-400"
-      : "text-green-400");
+  }
+
+  showOnly("auth-screen");
 
 }
 
 
-function escapeHtml(value) {
+/* =========================================
+   SECURITY HELPER
+========================================= */
 
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function escapeHTML(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 }
 
 </script>
 
 </body>
-    </html>
+</html>
