@@ -1,234 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#030712">
-<title>Quick Cash Kenya 🇰🇪</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#030712">
+  <title>Quick Cash Kenya 🇰🇪</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
-body{background:#030712}
-.hidden{display:none!important}
-</style>
+  <style>
+    body { background:#030712; }
+    .hidden { display:none !important; }
+  </style>
 </head>
 
 <body class="min-h-screen bg-gray-950 text-white">
 
-<header class="border-b border-gray-800">
-<div class="max-w-md mx-auto p-4 flex justify-between items-center">
-<div>
-<h1 class="font-bold text-green-400 text-lg">Quick Cash Kenya 🇰🇪</h1>
-<p class="text-[10px] text-gray-500">Complete tasks. Earn money.</p>
-</div>
-<button id="settingsBtn" type="button"
-class="text-xs bg-gray-900 border border-gray-700 px-3 py-2 rounded-lg">⚙️</button>
-</div>
+<header class="border-b border-gray-800 bg-gray-950">
+  <div class="max-w-md mx-auto p-4 flex justify-between items-center">
+    <div>
+      <h1 class="font-bold text-green-400 text-lg">Quick Cash Kenya 🇰🇪</h1>
+      <p class="text-[10px] text-gray-500">Complete tasks. Earn money.</p>
+    </div>
+
+    <button type="button" id="settingsBtn"
+      class="text-xs bg-gray-900 border border-gray-700 px-3 py-2 rounded-lg">
+      ⚙️
+    </button>
+  </div>
 </header>
 
 <main class="max-w-md mx-auto p-4">
 
 <!-- AUTH -->
-<section id="authScreen" class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+<section id="authScreen"
+  class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
 
-<div class="flex mb-5 border-b border-gray-800">
-<button id="loginTab" type="button"
-class="flex-1 py-3 text-sm font-bold text-green-400 border-b-2 border-green-400">
-Login
-</button>
+  <div class="flex mb-5 border-b border-gray-800">
 
-<button id="registerTab" type="button"
-class="flex-1 py-3 text-sm text-gray-400">
-Register
-</button>
-</div>
+    <button type="button" id="loginTab"
+      class="flex-1 py-3 text-sm font-bold text-green-400 border-b-2 border-green-400">
+      Login
+    </button>
 
-<input id="email" type="email" autocomplete="email"
-placeholder="Email address"
-class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mb-3 text-sm">
+    <button type="button" id="registerTab"
+      class="flex-1 py-3 text-sm text-gray-400">
+      Register
+    </button>
 
-<input id="password" type="password" autocomplete="current-password"
-placeholder="Password"
-class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mb-4 text-sm">
+  </div>
 
-<button id="authBtn" type="button"
-class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl font-bold">
-Login
-</button>
+  <input id="email"
+    type="email"
+    autocomplete="email"
+    placeholder="Email address"
+    class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mb-3 text-sm">
 
-<p id="authMessage" class="hidden mt-3 text-xs p-3 rounded-lg"></p>
+  <input id="password"
+    type="password"
+    autocomplete="current-password"
+    placeholder="Password"
+    class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mb-4 text-sm">
+
+  <button type="button" id="authBtn"
+    class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl font-bold">
+    Login
+  </button>
+
+  <p id="authMessage"
+    class="hidden mt-3 text-xs p-3 rounded-lg"></p>
+
 </section>
 
 
-<!-- DASHBOARD -->
+<!-- WORKER DASHBOARD -->
 <section id="dashboardScreen" class="hidden">
 
-<div class="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-4">
-<div class="flex justify-between items-center gap-3">
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-4">
 
-<div class="min-w-0">
-<p class="text-[10px] text-gray-500 uppercase">Account</p>
-<p id="userEmail" class="text-sm font-bold text-green-400 truncate"></p>
-</div>
+    <div class="flex justify-between items-center gap-3">
 
-<div class="flex gap-2">
-<button id="adminBtn" type="button"
-class="hidden text-xs text-yellow-300 border border-yellow-900 px-3 py-2 rounded-lg">
-Admin
-</button>
+      <div class="min-w-0">
+        <p class="text-[10px] text-gray-500 uppercase">Account</p>
+        <p id="userEmail"
+          class="text-sm font-bold text-green-400 truncate"></p>
+      </div>
 
-<button id="logoutBtn" type="button"
-class="text-xs text-red-400 border border-red-900 px-3 py-2 rounded-lg">
-Logout
-</button>
-</div>
+      <button type="button" id="logoutBtn"
+        class="text-xs text-red-400 border border-red-900 px-3 py-2 rounded-lg">
+        Logout
+      </button>
 
-</div>
-</div>
+    </div>
+
+  </div>
 
 
-<div class="bg-green-950/30 border border-green-900/50 rounded-2xl p-5 mb-4">
-<p class="text-xs text-gray-400">Available Balance</p>
+  <!-- WORKER BALANCE -->
+  <div class="bg-green-950/30 border border-green-900/50 rounded-2xl p-5 mb-4">
 
-<div class="flex justify-between items-end mt-1">
-<p id="balance" class="text-3xl font-bold text-green-400">KES 0</p>
+    <p class="text-xs text-gray-400">Available Balance</p>
 
-<button id="withdrawBtn" type="button"
-class="text-xs bg-green-600 px-3 py-2 rounded-lg font-bold">
-Withdraw
-</button>
-</div>
-</div>
+    <div class="flex justify-between items-end mt-1">
+
+      <p id="balance"
+        class="text-3xl font-bold text-green-400">
+        KES 0
+      </p>
+
+      <button type="button" id="withdrawBtn"
+        class="text-xs bg-green-600 px-3 py-2 rounded-lg font-bold">
+        Withdraw
+      </button>
+
+    </div>
+
+  </div>
 
 
-<div class="bg-gray-900 border border-gray-800 rounded-2xl p-4">
+  <!-- WORKER TASKS -->
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4">
 
-<div class="mb-4">
-<h2 class="font-bold">Available Tasks</h2>
-<p class="text-xs text-gray-500">
-Complete published tasks and submit your work.
-</p>
-</div>
+    <div class="mb-4">
+      <h2 class="font-bold">Available Tasks</h2>
+      <p class="text-xs text-gray-500">
+        Complete published tasks and submit your work.
+      </p>
+    </div>
 
-<div id="tasksList" class="space-y-3">
-<p class="text-xs text-gray-500 text-center py-5">
-Loading tasks...
-</p>
-</div>
+    <div id="tasksList" class="space-y-3">
+      <p class="text-xs text-gray-500 text-center py-5">
+        Loading tasks...
+      </p>
+    </div>
 
-</div>
+  </div>
+
 </section>
 
 
-<!-- ADMIN -->
+<!-- ADMIN DASHBOARD -->
 <section id="adminScreen" class="hidden">
 
-<div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
 
-<div class="flex justify-between items-center mb-4">
-<div>
-<h2 class="font-bold text-lg text-yellow-300">Admin Panel</h2>
-<p class="text-xs text-gray-500">Quick Cash Kenya management.</p>
-</div>
+    <div class="flex justify-between items-center mb-5">
 
-<button id="backDashboardBtn" type="button"
-class="text-xs border border-gray-700 px-3 py-2 rounded-lg">
-Back
-</button>
-</div>
+      <div>
+        <h2 class="font-bold text-lg text-yellow-300">
+          Admin Panel
+        </h2>
 
-<div id="adminMessage" class="hidden text-xs p-3 rounded-lg mb-4"></div>
+        <p class="text-xs text-gray-500">
+          Quick Cash Kenya management.
+        </p>
+      </div>
 
-<div id="adminStats" class="grid grid-cols-2 gap-3"></div>
+      <button type="button" id="adminLogoutBtn"
+        class="text-xs text-red-400 border border-red-900 px-3 py-2 rounded-lg">
+        Logout
+      </button>
 
-<button id="refreshAdminBtn" type="button"
-class="w-full bg-green-600 py-3 rounded-xl mt-4 font-bold text-sm">
-Refresh Admin Data
-</button>
+    </div>
 
-</div>
+
+    <div id="adminMessage"
+      class="hidden text-xs p-3 rounded-lg mb-4">
+    </div>
+
+
+    <div id="adminStats"
+      class="grid grid-cols-2 gap-3">
+
+      <div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 uppercase">Users</p>
+        <p class="text-2xl font-bold text-green-400 mt-1">...</p>
+      </div>
+
+      <div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 uppercase">Tasks</p>
+        <p class="text-2xl font-bold text-green-400 mt-1">...</p>
+      </div>
+
+      <div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 uppercase">Submissions</p>
+        <p class="text-2xl font-bold text-green-400 mt-1">...</p>
+      </div>
+
+      <div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 uppercase">Withdrawals</p>
+        <p class="text-2xl font-bold text-green-400 mt-1">...</p>
+      </div>
+
+      <div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 uppercase">Payments</p>
+        <p class="text-2xl font-bold text-green-400 mt-1">...</p>
+      </div>
+
+    </div>
+
+
+    <button type="button" id="refreshAdminBtn"
+      class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl mt-5 font-bold text-sm">
+      Refresh Admin Data
+    </button>
+
+  </div>
+
 </section>
 
 
 <!-- TASK MODAL -->
-<div id="taskModal" class="hidden fixed inset-0 bg-black/80 p-4 z-50">
+<div id="taskModal"
+  class="hidden fixed inset-0 bg-black/80 p-4 z-50">
 
-<div class="max-w-md mx-auto mt-10 bg-gray-900 border border-gray-700 rounded-2xl p-5">
+  <div class="max-w-md mx-auto mt-10 bg-gray-900 border border-gray-700 rounded-2xl p-5">
 
-<div class="flex justify-between">
-<h2 id="modalTitle" class="font-bold"></h2>
+    <div class="flex justify-between">
 
-<button id="closeModal" type="button" class="text-gray-400">
-✕
-</button>
+      <h2 id="modalTitle" class="font-bold"></h2>
+
+      <button type="button" id="closeModal"
+        class="text-gray-400">
+        ✕
+      </button>
+
+    </div>
+
+    <p id="modalDescription"
+      class="text-sm text-gray-300 mt-3"></p>
+
+    <div class="bg-gray-950 rounded-xl p-3 mt-4">
+
+      <p class="text-xs text-gray-500">
+        Instructions
+      </p>
+
+      <p id="modalInstructions"
+        class="text-sm mt-1"></p>
+
+    </div>
+
+    <p id="modalReward"
+      class="text-green-400 font-bold text-sm mt-4"></p>
+
+    <textarea id="submissionText"
+      class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-4 text-sm"
+      rows="5"
+      placeholder="Enter your completed work / proof here"></textarea>
+
+    <button type="button" id="submitTaskBtn"
+      class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl mt-3 font-bold">
+      Submit Task
+    </button>
+
+    <p id="taskMessage"
+      class="hidden text-xs mt-3"></p>
+
+  </div>
 </div>
 
-<p id="modalDescription" class="text-sm text-gray-300 mt-3"></p>
 
-<div class="bg-gray-950 rounded-xl p-3 mt-4">
-<p class="text-xs text-gray-500">Instructions</p>
-<p id="modalInstructions" class="text-sm mt-1"></p>
-</div>
+<!-- WITHDRAW MODAL -->
+<div id="withdrawModal"
+  class="hidden fixed inset-0 bg-black/80 p-4 z-50">
 
-<p id="modalReward" class="text-green-400 font-bold text-sm mt-4"></p>
+  <div class="max-w-md mx-auto mt-20 bg-gray-900 border border-gray-700 rounded-2xl p-5">
 
-<textarea id="submissionText"
-class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-4 text-sm"
-rows="5"
-placeholder="Enter your completed work / proof here"></textarea>
+    <div class="flex justify-between">
 
-<button id="submitTaskBtn" type="button"
-class="w-full bg-green-600 hover:bg-green-500 py-3 rounded-xl mt-3 font-bold">
-Submit Task
-</button>
+      <h2 class="font-bold">
+        Withdraw Earnings
+      </h2>
 
-<p id="taskMessage" class="hidden text-xs mt-3"></p>
+      <button type="button" id="closeWithdraw"
+        class="text-gray-400">
+        ✕
+      </button>
 
-</div>
-</div>
+    </div>
 
+    <p class="text-xs text-gray-500 mt-2">
+      Enter your M-Pesa number and amount.
+    </p>
 
-<!-- WITHDRAW -->
-<div id="withdrawModal" class="hidden fixed inset-0 bg-black/80 p-4 z-50">
+    <input id="mpesaNumber"
+      inputmode="tel"
+      autocomplete="tel"
+      class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-4 text-sm"
+      placeholder="07XXXXXXXX">
 
-<div class="max-w-md mx-auto mt-20 bg-gray-900 border border-gray-700 rounded-2xl p-5">
+    <input id="withdrawAmount"
+      type="number"
+      min="200"
+      step="1"
+      class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-3 text-sm"
+      placeholder="Amount in KES (min 200)">
 
-<div class="flex justify-between">
-<h2 class="font-bold">Withdraw Earnings</h2>
+    <button type="button" id="requestWithdraw"
+      class="w-full bg-green-600 py-3 rounded-xl mt-4 font-bold">
+      Request Withdrawal
+    </button>
 
-<button id="closeWithdraw" type="button" class="text-gray-400">
-✕
-</button>
-</div>
+    <p id="withdrawMessage"
+      class="hidden text-xs mt-3"></p>
 
-<p class="text-xs text-gray-500 mt-2">
-Enter your M-Pesa number and amount.
-</p>
-
-<input id="mpesaNumber"
-inputmode="tel"
-placeholder="07XXXXXXXX"
-class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-4 text-sm">
-
-<input id="withdrawAmount"
-type="number"
-min="200"
-placeholder="Amount in KES (min 200)"
-class="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 mt-3 text-sm">
-
-<button id="requestWithdraw" type="button"
-class="w-full bg-green-600 py-3 rounded-xl mt-4 font-bold">
-Request Withdrawal
-</button>
-
-<p id="withdrawMessage" class="hidden text-xs mt-3"></p>
-
-</div>
+  </div>
 </div>
 
 </main>
+
 
 <footer class="text-center text-[10px] text-gray-600 py-6">
 © 2026 Quick Cash Kenya
@@ -237,592 +319,1043 @@ Request Withdrawal
 
 <script>
 (() => {
+
 "use strict";
+
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
 "https://bwkvnjnzbuebsccfjdjg.supabase.co";
 
-const SUPABASE_KEY =
+const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_KEiXBBSCpctU8oRGwfo8NQ_uAGkgQnp";
 
+
+/* =========================
+   ADMIN
+========================= */
+
 const ADMIN_EMAIL =
-"mutaisidney26@gmail.com";
-
-let db;
-let currentUser=null;
-let selectedTask=null;
-let loginMode=true;
-let isAdmin=false;
-
-const $=id=>document.getElementById(id);
+"mutaisidney26@gmail.com".toLowerCase();
 
 
-function show(screen){
+/* =========================
+   VARIABLES
+========================= */
 
-["authScreen","dashboardScreen","adminScreen"]
-.forEach(id=>$(id).classList.add("hidden"));
+let db = null;
+let currentUser = null;
+let selectedTask = null;
+let loginMode = true;
+let isAdmin = false;
+
+
+/* =========================
+   SHORTCUT
+========================= */
+
+const $ = id =>
+document.getElementById(id);
+
+
+/* =========================
+   SCREEN CONTROL
+========================= */
+
+function showOnly(screen){
+
+[
+"authScreen",
+"dashboardScreen",
+"adminScreen"
+].forEach(id => {
+
+$(id).classList.add("hidden");
+
+});
 
 $(screen).classList.remove("hidden");
+
 }
 
 
-function message(text,error=false){
+/* =========================
+   AUTH MESSAGE
+========================= */
 
-const el=$("authMessage");
+function showAuthMessage(message,error=false){
 
-el.textContent=text;
+const el = $("authMessage");
 
-el.className=
-"mt-3 text-xs p-3 rounded-lg "+
-(error
-?"text-red-400 bg-red-950/40"
-:"text-green-400 bg-green-950/40");
+el.textContent = message;
+
+el.className =
+"mt-3 text-xs p-3 rounded-lg " +
+(
+error
+? "text-red-400 bg-red-950/40"
+: "text-green-400 bg-green-950/40"
+);
+
 }
 
 
-function taskMessage(text,error=false){
+/* =========================
+   AUTH MODE
+========================= */
 
-const el=$("taskMessage");
+function setAuthMode(login){
 
-el.textContent=text;
-
-el.className=
-"text-xs mt-3 "+
-(error?"text-red-400":"text-green-400");
-}
-
-
-function setMode(login){
-
-loginMode=login;
+loginMode = login;
 
 if(login){
 
-$("loginTab").className=
+$("loginTab").className =
 "flex-1 py-3 text-sm font-bold text-green-400 border-b-2 border-green-400";
 
-$("registerTab").className=
+$("registerTab").className =
 "flex-1 py-3 text-sm text-gray-400";
 
-$("authBtn").textContent="Login";
+$("authBtn").textContent =
+"Login";
 
 $("password").setAttribute(
-"autocomplete","current-password"
+"autocomplete",
+"current-password"
 );
 
 }else{
 
-$("registerTab").className=
+$("registerTab").className =
 "flex-1 py-3 text-sm font-bold text-green-400 border-b-2 border-green-400";
 
-$("loginTab").className=
+$("loginTab").className =
 "flex-1 py-3 text-sm text-gray-400";
 
-$("authBtn").textContent="Create Account";
+$("authBtn").textContent =
+"Create Account";
 
 $("password").setAttribute(
-"autocomplete","new-password"
+"autocomplete",
+"new-password"
 );
 
 }
+
 }
 
+
+/* =========================
+   SESSION
+========================= */
 
 async function checkSession(){
 
-const {data,error}=await db.auth.getSession();
+if(!db) return;
 
-if(error){
+try{
 
-show("authScreen");
-message(error.message,true);
-return;
-}
+const {data,error} =
+await db.auth.getSession();
 
-if(data.session){
+if(error) throw error;
 
-currentUser=data.session.user;
 
-await dashboard();
+if(data && data.session){
+
+currentUser =
+data.session.user;
+
+await showDashboard();
 
 }else{
 
-currentUser=null;
+currentUser = null;
+isAdmin = false;
 
-show("authScreen");
+showOnly("authScreen");
+
+}
+
+}catch(error){
+
+console.error(error);
+
+showOnly("authScreen");
+
+showAuthMessage(
+error.message ||
+"Could not check your login session.",
+true
+);
+
 }
 
 }
 
+
+/* =========================
+   LOGIN / REGISTER
+========================= */
 
 async function authenticate(){
 
-const email=$("email").value.trim().toLowerCase();
-const password=$("password").value;
+if(!db){
 
-if(!email||!password){
+showAuthMessage(
+"Database is not connected. Refresh the page.",
+true
+);
 
-message("Enter your email and password.",true);
 return;
+
 }
 
-if(password.length<6){
 
-message("Password must be at least 6 characters.",true);
+const email =
+$("email").value.trim().toLowerCase();
+
+const password =
+$("password").value;
+
+
+if(!email || !password){
+
+showAuthMessage(
+"Enter your email and password.",
+true
+);
+
 return;
+
 }
 
-const btn=$("authBtn");
 
-btn.disabled=true;
+if(password.length < 6){
 
-btn.textContent=
-loginMode?"Logging in...":"Creating account...";
+showAuthMessage(
+"Password must be at least 6 characters.",
+true
+);
+
+return;
+
+}
+
+
+const button =
+$("authBtn");
+
+button.disabled = true;
+
+button.textContent =
+loginMode
+? "Logging in..."
+: "Creating account...";
+
 
 try{
 
 let result;
 
+
 if(loginMode){
 
-result=await db.auth.signInWithPassword({
+result =
+await db.auth.signInWithPassword({
 email,
 password
 });
 
 }else{
 
-result=await db.auth.signUp({
+result =
+await db.auth.signUp({
 email,
 password
 });
 
 }
 
-if(result.error) throw result.error;
 
-if(!loginMode && !result.data.session){
+if(result.error)
+throw result.error;
 
-message(
+
+if(
+!loginMode &&
+(!result.data || !result.data.session)
+){
+
+showAuthMessage(
 "Account created. Check your email to confirm your account."
 );
 
-setMode(true);
+setAuthMode(true);
 
 return;
+
 }
 
-message("Login successful.");
+
+showAuthMessage(
+"Login successful."
+);
 
 await checkSession();
 
-}catch(e){
 
-message(e.message||"Authentication failed.",true);
+}catch(error){
+
+console.error(error);
+
+let msg =
+error.message ||
+"Authentication failed.";
+
+
+if(
+msg.toLowerCase()
+.includes("email not confirmed")
+){
+
+msg =
+"Email not confirmed. Confirm your email from Supabase, then log in again.";
+
+}
+
+showAuthMessage(msg,true);
+
 
 }finally{
 
-btn.disabled=false;
+button.disabled = false;
 
-btn.textContent=
-loginMode?"Login":"Create Account";
+button.textContent =
+loginMode
+? "Login"
+: "Create Account";
+
 }
+
 }
 
 
-async function dashboard(){
+/* =========================
+   ADMIN CHECK
+========================= */
 
-show("dashboardScreen");
+async function loadAdminStatus(){
 
-$("userEmail").textContent=
-currentUser.email;
-
-isAdmin=
-currentUser.email.toLowerCase()===
-ADMIN_EMAIL.toLowerCase();
-
-$("adminBtn").classList.toggle(
-"hidden",!isAdmin
+isAdmin =
+Boolean(
+currentUser &&
+currentUser.email &&
+currentUser.email.toLowerCase()
+===
+ADMIN_EMAIL
 );
 
-await loadWallet();
-await loadTasks();
-}
 
+/*
+   Also check profiles.role.
+   This does NOT give extra database permissions.
+*/
 
-async function loadWallet(){
+if(currentUser && db){
 
 try{
 
-const {data,error}=await db
+const {data,error} =
+await db
+.from("profiles")
+.select("role")
+.eq("id",currentUser.id)
+.maybeSingle();
+
+if(!error &&
+data &&
+data.role === "admin"){
+
+isAdmin = true;
+
+}
+
+}catch(error){
+
+console.warn(
+"Profile role check failed:",
+error
+);
+
+}
+
+}
+
+}
+
+
+/* =========================
+   IMPORTANT:
+   ADMIN ≠ WORKER
+========================= */
+
+async function showDashboard(){
+
+await loadAdminStatus();
+
+
+/*
+   ADMIN USERS:
+   Go DIRECTLY to Admin Panel.
+   They never load worker tasks/wallet.
+*/
+
+if(isAdmin){
+
+showOnly("adminScreen");
+
+await loadAdminData();
+
+return;
+
+}
+
+
+/*
+   NORMAL WORKERS:
+   Only workers get the worker dashboard.
+*/
+
+showOnly("dashboardScreen");
+
+$("userEmail").textContent =
+currentUser
+? currentUser.email
+: "";
+
+await Promise.all([
+loadWallet(),
+loadTasks()
+]);
+
+}
+
+
+/* =========================
+   WALLET
+========================= */
+
+async function loadWallet(){
+
+if(!currentUser || !db)
+return;
+
+$("balance").textContent =
+"KES 0";
+
+try{
+
+const {data,error} =
+await db
 .from("wallets")
-.select("available_balance")
-.eq("worker_id",currentUser.id)
+.select(
+"available_balance,pending_balance,total_earnings"
+)
+.eq(
+"worker_id",
+currentUser.id
+)
 .maybeSingle();
 
 if(error) throw error;
 
-const balance=
-data?Number(data.available_balance||0):0;
+const balance =
+data
+? Number(data.available_balance || 0)
+: 0;
 
-$("balance").textContent=
-"KES "+balance.toLocaleString();
+$("balance").textContent =
+"KES " +
+balance.toLocaleString();
 
-}catch(e){
+}catch(error){
 
-$("balance").textContent="KES 0";
+console.warn(
+"Wallet could not be loaded:",
+error
+);
+
 }
+
 }
 
 
-function esc(value){
+/* =========================
+   HTML ESCAPE
+========================= */
 
-return String(value??"")
+function escapeHtml(value){
+
+return String(value ?? "")
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
 .replace(/"/g,"&quot;")
 .replace(/'/g,"&#039;");
+
 }
 
+
+/* =========================
+   TASKS
+========================= */
 
 async function loadTasks(){
 
-const list=$("tasksList");
+const container =
+$("tasksList");
 
-list.innerHTML=
+container.innerHTML =
 '<p class="text-xs text-gray-500 text-center py-5">Loading tasks...</p>';
+
 
 try{
 
-const {data,error}=await db
+const {data,error} =
+await db
 .from("tasks")
 .select("*")
 .eq("status","published")
-.order("created_at",{ascending:false});
+.order(
+"created_at",
+{ascending:false}
+);
 
-if(error) throw error;
 
-if(!data||!data.length){
+if(error)
+throw error;
 
-list.innerHTML=
+
+if(!data || data.length === 0){
+
+container.innerHTML =
 '<p class="text-xs text-gray-500 text-center py-5">No tasks available right now.</p>';
 
 return;
+
 }
 
-list.innerHTML="";
 
-data.forEach(task=>{
+container.innerHTML = "";
 
-const reward=Number(task.reward||0);
 
-const card=document.createElement("div");
+data.forEach(task => {
 
-card.className=
+const card =
+document.createElement("div");
+
+card.className =
 "border border-gray-800 bg-gray-950 rounded-xl p-4";
 
-card.innerHTML=`
+
+const reward =
+Number(task.reward || 0);
+
+
+card.innerHTML = `
 
 <div class="flex justify-between gap-3">
 
 <div class="min-w-0">
 
 <h3 class="font-bold text-sm">
-${esc(task.title||"Task")}
+${escapeHtml(task.title || "Task")}
 </h3>
 
 <p class="text-xs text-gray-400 mt-1">
-${esc(task.description||"")}
+${escapeHtml(task.description || "")}
 </p>
 
 <p class="text-xs text-green-400 font-bold mt-2">
 Reward: KES ${reward.toLocaleString()}
 </p>
 
-${task.difficulty?
+${
+task.difficulty
+?
 `<p class="text-[10px] text-gray-500 mt-1">
-Difficulty: ${esc(task.difficulty)}
-</p>`:""}
+Difficulty: ${escapeHtml(task.difficulty)}
+</p>`
+:
+""
+}
 
 </div>
 
-<button type="button"
-class="openTask bg-green-600 text-xs px-3 py-2 rounded-lg font-bold h-fit">
+<button
+type="button"
+class="openTask bg-green-600 hover:bg-green-500 text-xs px-3 py-2 rounded-lg font-bold h-fit whitespace-nowrap">
 Open
 </button>
 
 </div>
+
 `;
 
-card.querySelector(".openTask")
-.addEventListener("click",()=>openTask(task));
 
-list.appendChild(card);
+card
+.querySelector(".openTask")
+.addEventListener(
+"click",
+() => openTask(task)
+);
+
+
+container.appendChild(card);
 
 });
 
-}catch(e){
 
-list.innerHTML=
+}catch(error){
+
+console.error(error);
+
+container.innerHTML =
 `<p class="text-xs text-red-400">
-Error loading tasks: ${esc(e.message)}
+Error loading tasks:
+${escapeHtml(error.message)}
 </p>`;
-}
+
 }
 
+}
+
+
+/* =========================
+   OPEN TASK
+========================= */
 
 function openTask(task){
 
-selectedTask=task;
+selectedTask = task;
 
-$("modalTitle").textContent=
-task.title||"Task";
+$("modalTitle").textContent =
+task.title || "Task";
 
-$("modalDescription").textContent=
-task.description||"";
+$("modalDescription").textContent =
+task.description || "";
 
-$("modalInstructions").textContent=
-task.instructions||"Follow the task description.";
+$("modalInstructions").textContent =
+task.instructions ||
+"Follow the task description.";
 
-$("modalReward").textContent=
-"Reward: KES "+
-Number(task.reward||0).toLocaleString();
+$("modalReward").textContent =
+"Reward: KES " +
+Number(task.reward || 0)
+.toLocaleString();
 
-$("submissionText").value="";
+$("submissionText").value = "";
 
-$("taskModal").classList.remove("hidden");
+$("taskMessage").classList.add("hidden");
+
+$("taskModal")
+.classList.remove("hidden");
+
 }
 
+
+/* =========================
+   SUBMIT TASK
+========================= */
 
 async function submitTask(){
 
-if(!selectedTask)return;
+if(
+!selectedTask ||
+!currentUser ||
+!db
+)
+return;
 
-const text=
-$("submissionText").value.trim();
+
+const text =
+$("submissionText")
+.value
+.trim();
+
 
 if(!text){
 
-taskMessage(
-"Please enter your completed work.",true
-);
+const el =
+$("taskMessage");
+
+el.textContent =
+"Please enter your completed work.";
+
+el.className =
+"text-xs mt-3 text-red-400";
 
 return;
+
 }
 
-const btn=$("submitTaskBtn");
 
-btn.disabled=true;
-btn.textContent="Submitting...";
+const button =
+$("submitTaskBtn");
+
+button.disabled = true;
+
+button.textContent =
+"Submitting...";
+
 
 try{
 
-const {error}=await db
+const {error} =
+await db
 .from("submissions")
 .insert({
 
-task_id:selectedTask.id,
-worker_id:currentUser.id,
-submission_text:text,
-status:"pending_review"
+task_id:
+selectedTask.id,
+
+worker_id:
+currentUser.id,
+
+submission_text:
+text,
+
+status:
+"pending_review"
 
 });
 
-if(error)throw error;
 
-taskMessage(
-"Submitted successfully. Waiting for admin review."
-);
+if(error)
+throw error;
 
-$("submissionText").value="";
 
-}catch(e){
+const el =
+$("taskMessage");
 
-taskMessage(
-e.message||"Could not submit task.",true
-);
+el.textContent =
+"Submitted successfully. Waiting for admin review.";
+
+el.className =
+"text-xs mt-3 text-green-400";
+
+$("submissionText").value = "";
+
+
+}catch(error){
+
+console.error(error);
+
+const el =
+$("taskMessage");
+
+el.textContent =
+error.message ||
+"Could not submit the task.";
+
+el.className =
+"text-xs mt-3 text-red-400";
+
 
 }finally{
 
-btn.disabled=false;
-btn.textContent="Submit Task";
+button.disabled = false;
+
+button.textContent =
+"Submit Task";
+
 }
+
 }
 
 
-async function loadAdmin(){
+/* =========================
+   ADMIN DATA
+========================= */
 
-const stats=$("adminStats");
+function adminStat(label,value){
 
-stats.innerHTML="";
+return `
 
-const tables=[
+<div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
+
+<p class="text-[10px] text-gray-500 uppercase">
+${escapeHtml(label)}
+</p>
+
+<p class="text-2xl font-bold text-green-400 mt-1">
+${escapeHtml(value)}
+</p>
+
+</div>
+
+`;
+
+}
+
+
+async function loadAdminData(){
+
+const stats =
+$("adminStats");
+
+const message =
+$("adminMessage");
+
+stats.innerHTML = "";
+
+message.classList.add("hidden");
+
+
+const tables = [
+
 ["profiles","Users"],
+
 ["tasks","Tasks"],
+
 ["submissions","Submissions"],
+
 ["withdrawals","Withdrawals"],
+
 ["payments","Payments"]
+
 ];
 
-for(const item of tables){
+
+const counts = {};
+
+const errors = [];
+
+
+for(
+const [table,label]
+of tables
+){
 
 try{
 
-const {count,error}=await db
-.from(item[0])
-.select("id",{count:"exact",head:true});
-
-if(error)throw error;
-
-stats.innerHTML+=`
-<div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
-<p class="text-[10px] text-gray-500 uppercase">
-${item[1]}
-</p>
-<p class="text-2xl font-bold text-green-400 mt-1">
-${count||0}
-</p>
-</div>
-`;
-
-}catch(e){
-
-stats.innerHTML+=`
-<div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
-<p class="text-[10px] text-gray-500 uppercase">
-${item[1]}
-</p>
-<p class="text-2xl font-bold text-yellow-400">
-—
-</p>
-</div>
-`;
+const {count,error} =
+await db
+.from(table)
+.select(
+"id",
+{
+count:"exact",
+head:true
 }
-}
+);
+
+
+if(error)
+throw error;
+
+
+counts[table] =
+Number(count || 0);
+
+
+}catch(error){
+
+counts[table] =
+"—";
+
+errors.push(
+label + ": " +
+error.message
+);
+
 }
 
+}
+
+
+stats.innerHTML =
+
+adminStat(
+"Users",
+counts.profiles
+)
+
++
+
+adminStat(
+"Tasks",
+counts.tasks
+)
+
++
+
+adminStat(
+"Submissions",
+counts.submissions
+)
+
++
+
+adminStat(
+"Withdrawals",
+counts.withdrawals
+)
+
++
+
+adminStat(
+"Payments",
+counts.payments
+);
+
+
+if(errors.length){
+
+message.textContent =
+"Some admin data could not be read because of Supabase permissions/RLS: " +
+errors.join(" | ");
+
+message.className =
+"text-xs p-3 rounded-lg text-yellow-300 bg-yellow-950/40";
+
+}
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
 
 async function logout(){
 
+try{
+
+if(db)
 await db.auth.signOut();
 
-currentUser=null;
-isAdmin=false;
+}catch(error){
 
-$("email").value="";
-$("password").value="";
+console.error(error);
 
-$("adminBtn").classList.add("hidden");
+}finally{
 
-show("authScreen");
-setMode(true);
+currentUser = null;
+
+isAdmin = false;
+
+$("email").value = "";
+
+$("password").value = "";
+
+showOnly("authScreen");
+
+setAuthMode(true);
+
 }
 
+}
+
+
+/* =========================
+   INIT
+========================= */
 
 function init(){
 
-db=window.supabase.createClient(
+/*
+   Connect directly to Supabase.
+*/
+
+db =
+window.supabase.createClient(
 SUPABASE_URL,
-SUPABASE_KEY
+SUPABASE_PUBLISHABLE_KEY
 );
 
-$("loginTab").onclick=()=>setMode(true);
 
-$("registerTab").onclick=()=>setMode(false);
+/* AUTH */
 
-$("authBtn").onclick=authenticate;
-
-$("logoutBtn").onclick=logout;
-
-$("closeModal").onclick=()=>{
-$("taskModal").classList.add("hidden");
-selectedTask=null;
-};
-
-$("submitTaskBtn").onclick=submitTask;
-
-$("adminBtn").onclick=async()=>{
-if(!isAdmin)return;
-show("adminScreen");
-await loadAdmin();
-};
-
-$("backDashboardBtn").onclick=dashboard;
-
-$("refreshAdminBtn").onclick=loadAdmin;
-
-$("withdrawBtn").onclick=()=>{
-$("withdrawModal").classList.remove("hidden");
-};
-
-$("closeWithdraw").onclick=()=>{
-$("withdrawModal").classList.add("hidden");
-};
-
-$("requestWithdraw").onclick=()=>{
-
-const phone=$("mpesaNumber").value.trim();
-const amount=Number($("withdrawAmount").value);
-
-if(!/^07\d{8}$/.test(phone)&&
-!/^2547\d{8}$/.test(phone)){
-
-$("withdrawMessage").textContent=
-"Enter a valid Kenyan M-Pesa number.";
-
-$("withdrawMessage").className=
-"text-xs mt-3 text-red-400";
-
-return;
-}
-
-if(amount<200){
-
-$("withdrawMessage").textContent=
-"Minimum withdrawal is KES 200.";
-
-$("withdrawMessage").className=
-"text-xs mt-3 text-red-400";
-
-return;
-}
-
-$("withdrawMessage").textContent=
-"Withdrawal request received. Automatic M-Pesa sending is not connected yet.";
-
-$("withdrawMessage").className=
-"text-xs mt-3 text-green-400";
-};
-
-$("settingsBtn").onclick=()=>{
-
-alert(
-"Quick Cash Kenya is already connected to Supabase."
-);
-};
-
-setMode(true);
-
-checkSession();
-}
-
-
-if(document.readyState==="loading"){
-
-document.addEventListener(
-"DOMContentLoaded",
-init
+$("loginTab")
+.addEventListener(
+"click",
+() => setAuthMode(true)
 );
 
-}else{
 
-init();
+$("registerTab")
+.addEventListener(
+"click",
+() => setAuthMode(false)
+);
+
+
+$("authBtn")
+.addEventListener(
+"click",
+authenticate
+);
+
+
+/* WORKER LOGOUT */
+
+$("logoutBtn")
+.addEventListener(
+"click",
+logout
+);
+
+
+/* ADMIN LOGOUT */
+
+$("adminLogoutBtn")
+.addEventListener(
+"click",
+logout
+);
+
+
+/* TASK MODAL */
+
+$("closeModal")
+.addEventListener(
+"click",
+() => {
+
+$("taskModal")
+.classList.add("hidden");
+
+selectedTask = null;
 
 }
+);
 
-})();
-</script>
 
-</body>
-  </html>
+$("submitTaskBtn")
+.addEventListener(
+"click",
+submitTask
+);
+
+
+/* WITHDRAW */
+
+$("withdrawBtn")
+.addEventListener(
+"click",
+() => {
+
+$("withdrawModal")
+.classList.remove("hidden");
+
+}
+);
+
+
+$("closeWithdraw")
+.ad
